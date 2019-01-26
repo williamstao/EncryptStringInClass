@@ -114,7 +114,7 @@ public class BytecodeInject {
         		{
 					e.printStackTrace();
 				} 
-        		mv.visitMethodInsn(Opcodes.INVOKESTATIC, "a", "a", "(Ljava/lang/String;)Ljava/lang/String;");
+        		mv.visitMethodInsn(Opcodes.INVOKESTATIC, "Crypto", "DecryptString", "(Ljava/lang/String;)Ljava/lang/String;");
         		return;
         	}
         	super.visitLdcInsn(cst);
