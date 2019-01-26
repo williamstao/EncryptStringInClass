@@ -22,51 +22,66 @@ public class BytecodeInject {
     	if(args.length < 2)
     	{
     		System.out.println("paramters error");
-    		System.exit(0);
+    		System.exit(-1);
     	}
-    	String in = args[0];
-    	String out = args[1];
-        FileInputStream fis = new FileInputStream(in);
-        ClassReader cr = new ClassReader(fis);
-        ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
-        cr.accept(new MyClassVisivator(cw), 0);
-        writeToFile(cw.toByteArray(), out);
+    	
+    	try
+    	{
+    		String in = args[0];
+        	String out = args[1];
+            FileInputStream fis = new FileInputStream(in);
+            ClassReader cr = new ClassReader(fis);
+            ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
+            cr.accept(new MyClassVisivator(cw), 0);
+            boolean success = writeToFile(cw.toByteArray(), out);
+            if(!success)
+            {
+            	//System.out.println("Failed");
+            	System.exit(-1);
+            }
+            else
+            {
+            	//System.out.println("Success");
+            	System.exit(0);
+            }
+    	}
+    	catch(Exception e)
+    	{
+    		e.printStackTrace();
+    		System.exit(-1);
+    	}
     }
     
-    static void writeToFile(byte[] bytes, String fileName) 
+    static boolean writeToFile(byte[] bytes, String fileName) 
     {
-        try 
-        {
-            (new File(fileName)).createNewFile();
-        } 
-        catch (IOException e1)
-        {
-            e1.printStackTrace();
-        }
         FileOutputStream fos = null;
         try 
         {
-            fos = new FileOutputStream(fileName);
+        	File f = new File(fileName);
+        	f.createNewFile();
+            fos = new FileOutputStream(f);
             fos.write(bytes);
             fos.flush();
         } 
         catch (Exception e) 
         {
+        	return false;
         }
         finally
         {
-            try 
-            {
-                if (fos != null) 
+        	if(fos != null)
+        	{
+        		try 
                 {
                     fos.close();
                 }
-            }
-            catch (IOException e) 
-            {
-                e.printStackTrace();
-            }
+                catch (IOException e) 
+                {
+                    e.printStackTrace();
+                }
+        	}
         }
+        return true;
     }
   
     static class MyClassVisivator extends ClassAdapter 
