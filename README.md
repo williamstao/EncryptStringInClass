@@ -3,8 +3,8 @@
 
 + shell before:
 
-![ABC](https://github.com/williamstao/EncryptStringInClass/blob/master/demo/pic/before_shell.png) 
+![ABC](https://github.com/williamstao/EncryptStringInClass/blob/master/demo/png/before_shell.png) 
 
 + shell after:
 
-![abc](https://github.com/williamstao/EncryptStringInClass/blob/master/demo/pic/after_shell.png)
+![abc](https://github.com/williamstao/EncryptStringInClass/blob/master/demo/png/after_shell.png)
