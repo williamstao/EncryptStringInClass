@@ -1,5 +1,5 @@
 # Encrypt String InClass
-+ java -jar AsmInjector in.class out.class
++ java -jar AsmInjector.jar in.class out.class
 
 + shell before:
 
